@@ -15,36 +15,22 @@ mylabelsTesting(201:300) = 8;
 mylabelsTesting(301:400) = 1;
 
 
-[newFullMatrix,newmylabelsTesting] = shufflerows(FullMatrix,mylabelsTesting);
+target = zeros(400,4);
+prediction = zeros(400,4);
 
-newdata1 = newFullMatrix(1:200,:);
-newdata2 = newFullMatrix(201:400,:);
+target(1:100,1) = 1;
+target(1:100,2:4) = 0;
 
+target(101:200,1) = 0;
+target(101:200,2) = 1;
+target(101:200,3:4) = 0;
 
+target(201:300,1:2) = 0;
+target(201:300,3) = 1;
+target(201:300,4) = 0;
 
-for i=1:100
-  if(newmylabelsTesting(i) == 3)
-    target(1:100,1) = 1;
-    target(1:101,2:4) = 0;
-  end
-
-  if(newmylabelsTesting(i) == 6)
-    target(101:200, 1) = 0;
-    target(101:200, 2) = 1;
-    target(101:200, 3:4) = 0;
-  end
-
-  if(newmylabelsTesting(i) == 8)
-    target(201:300, 1:2) =0;
-    target(201:300, 3) = 1;
-    target(201:300, 4) = 0;
-  end
-
-  if(newmylabelsTesting(i) == 1)
-    target(301:400, 1:3) = 0;
-    target(301:400, 4) = 1;
-  end
-end
+target(301:400,1:3) = 0;
+target(301:400,4) = 1;
 
 
 
@@ -53,7 +39,7 @@ for lambda = -5:10
   [Y,n] = RegLS(10^lambda, FullMatrixTesting, FullMatrix, target);
 
     count = 0;
-    for i = 1:200
+    for i = 1:400
 
       max = Y(i,1);
       poz = 1;
@@ -63,12 +49,28 @@ for lambda = -5:10
           poz = j;
         end
       end
-      
-      if newmylabelsTesting(i + 200) == 3 && poz == 1 || newmylabelsTesting(i + 200) == 6 && poz == 2 || newmylabelsTesting(i + 200) == 8 && poz == 3 || newmylabelsTesting(i + 200) == 1 && poz == 4
-          count= count + 1;
+
+      if(poz == 1)
+      prediction(i) = 3;
+      end
+      if(poz == 2)
+        prediction(i) = 6;
+      end
+      if(poz == 3)
+        prediction(i) = 8;
+      end
+      if(poz == 4)
+        prediction(i) = 1;
       end
     end
-    accuracy(k,j + 6) = count ;
+
+      for i=1:400
+        if mylabelsTesting(i) == prediction(i)
+            count= count + 1;
+        end
+      end
+    
+    accuracyX(k,lambda + 6) = count / 4 ;
 
 
 
@@ -82,3 +84,13 @@ for lambda = -5:10
 
 end
 end
+
+figure
+meanAccX = sum(accuracyX) ./ 5;
+stDeviation = std(accuracyX);
+errorbar(-5:10,meanAccX,stDeviation);
+
+title('Graph of standard deviation of the accuracy');
+xlabel('Neighbour numbers');
+ylabel('Standard deviation');
+legend('y = knearest(k, testingdata, data, truelabels)','Location','southwest');
