@@ -23,24 +23,24 @@ newdata2 = newFullMatrix(201:400,:);
 
 
 for i=1:100
-  if(newmylabels(i) == 3)
+  if(newmylabelsTesting(i) == 3)
     target(1:100,1) = 1;
     target(1:101,2:4) = 0;
   end
 
-  if(newmylabels(i) == 6)
+  if(newmylabelsTesting(i) == 6)
     target(101:200, 1) = 0;
     target(101:200, 2) = 1;
     target(101:200, 3:4) = 0;
   end
 
-  if(newmylabels(i) == 8)
+  if(newmylabelsTesting(i) == 8)
     target(201:300, 1:2) =0;
     target(201:300, 3) = 1;
     target(201:300, 4) = 0;
   end
 
-  if(newmylabels(i) == 1)
+  if(newmylabelsTesting(i) == 1)
     target(301:400, 1:3) = 0;
     target(301:400, 4) = 1;
   end
@@ -52,30 +52,24 @@ for lambda = -5:10
 
   [Y,n] = RegLS(10^lambda, FullMatrixTesting, FullMatrix, target);
 
-  for i = 1:400
-    max = Y(i,1);
-    poz = 1;
-    for j=2:4
-      if max < Y(i,j)
-        max = Y(i,j);
-        poz = j;
+    count = 0;
+    for i = 1:200
+
+      max = Y(i,1);
+      poz = 1;
+      for j=2:4
+        if max < Y(i,j)
+          max = Y(i,j);
+          poz = j;
+        end
+      end
+      
+      if newmylabelsTesting(i + 200) == 3 && poz == 1 || newmylabelsTesting(i + 200) == 6 && poz == 2 || newmylabelsTesting(i + 200) == 8 && poz == 3 || newmylabelsTesting(i + 200) == 1 && poz == 4
+          count= count + 1;
       end
     end
+    accuracy(k,j + 6) = count ;
 
-    if(poz == 1)
-      prediction(i) = 3;
-    end
-    if(poz == 2)
-      prediction(i) = 6;
-    end
-    if(poz == 3)
-      prediction(i) = 8;
-    end
-    if(poz == 4)
-      prediction(i) = 1;
-    end
-
-  end
 
 
 
