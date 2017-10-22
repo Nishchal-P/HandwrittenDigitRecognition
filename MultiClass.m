@@ -41,7 +41,7 @@ target(201:300,4) = 0;
 target(301:400,1:3) = 0;
 target(301:400,4) = 1;
 
-[Y,n] = RegLS(0, FullMatrixTesting, FullMatrix, target);
+[Y,n] = RegLS(10^6, FullMatrixTesting, FullMatrix, target);
 
 
 
@@ -50,7 +50,7 @@ for i = 1:400
   poz = 1;
   for j=2:4
     if max < Y(i,j)
-      max = Y(i);
+      max = Y(i,j);
       poz = j;
     end
   end
