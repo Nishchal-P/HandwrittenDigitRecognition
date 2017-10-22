@@ -2,7 +2,10 @@ target = zeros(200,1);
 target(1:100) = 1;
 target(101:200) = -1;
 
+ThreeMatrixTesting = data(1000 + randperm(500,100),:);
+EightMatrixTesting = data(3500 + randperm(500,100),:);
 
+ThreeEightMatrixTesting = vertcat(ThreeMatrixTesting, EightMatrixTesting);
 
 [Y,n] = RegLS(0,ThreeEightMatrixTesting, ThreeEightMatrix, target);
 

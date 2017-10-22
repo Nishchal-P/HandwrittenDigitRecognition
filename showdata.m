@@ -29,7 +29,7 @@ end
 
 %find out how many there are and restrict accordingly
 numexamples = size(data,1);
-if numexamples > 300
+if numexamples > 500
     error('Too big!');
 end
 
@@ -41,7 +41,7 @@ end
 
 
 %decide how many digits to put in the square
-for side=1:17
+for side=1:170
     if side^2 >= (numexamples)
         break;
     end
