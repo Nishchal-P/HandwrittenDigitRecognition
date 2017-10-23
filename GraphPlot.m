@@ -15,8 +15,8 @@ figure
 
 plot(accuracy);
 
-title('Graph of accuracy as neighbours number varies');
-xlabel('Neighbour numbers');
-ylabel('Accuracy')
+title('Plotting the accuracy of a trained model as neighbours number varies');
+xlabel('k');
+ylabel('Accuracy ( % )')
 legend('y = knearest(k, x, data, truelabels)','Location','northeast');
 

@@ -22,25 +22,24 @@ for k = 1:10
 end
 
 
+average = sum(accuracy) ./ 10;
 
 
 figure
-average = sum(accuracy) ./ 10;
 plot(average);
 
-title('Graph of average accuracy');
-xlabel('Neighbour numbers');
-ylabel('Average')
-legend('y = knearest(k, testingdata, data, truelabels)','Location','northeast');
+title('Graph of average accuracy')
+xlabel('k')
+ylabel('Average ( % )')
+legend('y = knearest(k, testingdata, data, truelabels)','Location','northeast')
 
 
 
 figure
 stDeviation = std(accuracy);
 errorbar(1:50,average,stDeviation);
-
-title('Graph of standard deviation of the accuracy');
-xlabel('Neighbour numbers');
-ylabel('Standard deviation')
-legend('y = knearest(k, testingdata, data, truelabels)','Location','northeast');
+title('Graph of standard deviation of the accuracy')
+xlabel('k')
+ylabel('Standard deviation ( % )')
+legend('y = knearest(k, testingdata, data, truelabels)','Location','northeast')
 

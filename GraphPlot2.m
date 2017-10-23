@@ -11,10 +11,11 @@ for i=1:50
     accuracy(i) = correctLabels(i) / 2; 
 end
 
+figure
 plot(accuracy);
 
-title('Graph of testing the accuracy as neighbours number varies');
-xlabel('Neighbour numbers');
-ylabel('Accuracy')
+title('Plotting the testing accuracy of the model as neighbours number varies');
+xlabel('k');
+ylabel('Accuracy ( % )')
 legend('y = knearest(k, testingdata, data, truelabels)','Location','northeast');
 
