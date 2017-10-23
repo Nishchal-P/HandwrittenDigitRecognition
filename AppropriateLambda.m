@@ -33,7 +33,7 @@ figure
 stDeviation = std(accuracy);
 errorbar(-5:10,meanAcc,stDeviation);
 
-title('Graph of standard deviation of the accuracy');
-xlabel('Neighbour numbers');
-ylabel('Standard deviation');
-legend('y = knearest(k, testingdata, data, truelabels)','Location','southwest');
+title('Plot regularised least squares model accuracy');
+xlabel('log10 ( lambda ) ');
+ylabel('Accuracy ( % )')
+legend('y = RegLS(lambda, testingdata, data, target)','Location','southeast');

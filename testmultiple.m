@@ -1,5 +1,3 @@
-
-
 for k=1:5
 
 ThreeMatrixTesting = data(1000 + randperm(500,100),:);
@@ -90,7 +88,7 @@ meanAccX = sum(accuracyX) ./ 5;
 stDeviation = std(accuracyX);
 errorbar(-5:10,meanAccX,stDeviation);
 
-title('Graph of standard deviation of the accuracy');
-xlabel('Neighbour numbers');
-ylabel('Standard deviation');
-legend('y = knearest(k, testingdata, data, truelabels)','Location','southwest');
+title('Plot accuracy of ReLS model in 4-class');
+xlabel('Lambda');
+ylabel('Accuracy');
+legend('y = RegLS(lambda, testingdata, data, target)','Location','southwest');
